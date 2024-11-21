@@ -8,6 +8,8 @@ function loadCalendar() {
   calendarDays.innerHTML = "";
   currentMonthTitle.innerText = `${currentYear}年 ${currentMonth + 1}月`;
 
+  const events =JSON.parse(localStorage.getItem("events")||"[]");
+
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
@@ -24,7 +26,20 @@ function loadCalendar() {
       calendarDays.appendChild(row);
       row = document.createElement("tr");
     }
-    row.innerHTML += `<td class="day" onclick="openModal(${i})">${i}</td>`;
+    const eventForDay = events.filter(
+      (event) => 
+        event.year === currentYear && 
+        event.month === currentMonth && 
+        event.day == i
+    );
+    let eventHTML = "";
+    if (eventForDay.length > 0) {
+      eventForDay.forEach((event) => {
+        eventHTML += `<div class="event">${event.name}</div>`;
+      });
+    }
+
+    row.innerHTML += `<td class="day" onclick="openModal(${i})">${i}${eventHTML}</td>`;
   }
 
   // 最後の行を追加
@@ -64,6 +79,10 @@ function closelist() {
 function addEvent() {
   const day = document.getElementById("event-name").dataset.day;
   const eventName = document.getElementById("event-name").value;
+  if (!eventName) {
+    alert("イベント名を入力してください。");
+    return; // 処理を中断
+  }
   const events = JSON.parse(localStorage.getItem("events") || "[]");
   events.push({ year: currentYear, month: currentMonth, day: day, name: eventName });
   localStorage.setItem("events", JSON.stringify(events));

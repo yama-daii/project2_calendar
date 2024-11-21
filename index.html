@@ -62,17 +62,21 @@
   
   <div id="event-list" class="list">
     <div class="list-content">
-      <span onclick="closelist()" class="close">&times;</span>
       <h2>登録されたイベント一覧</h2>
+      <span onclick="closelist()" class="close">&times;</span>
+      
       <ul id="showevents"></ul>
     </div>
   </div>
 
   <div id="ThemeMenu" class="ThemeMenu">
+    <div class="list-themes">
+      <h2>テーマを選択してください</h2>
     <span onclick="CloseThemeMenu()" class="close">&times;</span>
     <button onclick="setTheme('main')">メインテーマ</button>
     <button onclick="setTheme('light')">ライトテーマ</button>
     <button onclick="setTheme('dark')">ダークテーマ</button>
+    </div>
   </div>
   <script src="calendar.js"></script>
 </body>

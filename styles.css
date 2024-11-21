@@ -5,9 +5,12 @@
     color:var(--text-color) ;
  }
 #calendar {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+    width: 80%;
+    height: 80vh;
+    padding: 0;
+    margin-right:  20px; ;
+    display: grid;
+    grid-template-rows: auto 1fr;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color:var(--calendar-background);
@@ -79,7 +82,18 @@
     background-color: #4CAF50;
     color: white;
   }
-  
+  .event {
+    background-color: #4caf50;
+    color: white;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   /* モーダルのスタイル */
   .modal {
     display: none;
@@ -184,7 +198,7 @@
   #sidebar {
     width: 250px;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: var(--sidebar-background-color);
     padding: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -267,8 +281,8 @@
     --text-color: #000000;
     --button-bg-color: #cecece;
     --button-hover-bg-color:#7e7e7e;
-    --sidemenu-button-color:#b81c22;
-    --sidemenu-buttonH-color:rgb(255, 59, 59);
+    --sidemenu-button-color:#0556a1;
+    --sidemenu-buttonH-color:rgb(47, 189, 255);
   }
   
   .dark-theme {
@@ -276,10 +290,11 @@
     --calendar-background:white;
     --calendar-header:rgb(#ffffff);
     --text-color: black;
+    --sidebar-background-color:#333333;
     --button-bg-color: #555555;
     --button-hover-bg-color:#7e7e7e;
-    --sidemenu-button-color:#b81c22;
-    --sidemenu-buttonH-color:rgb(255, 59, 59);
+    --sidemenu-button-color:#0556a1;
+    --sidemenu-buttonH-color:rgb(47, 189, 255);
   }
   #ThemeMenu {
     display: none;
@@ -291,7 +306,17 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
   }
-  
+  .list-themes{
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 50px auto;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+
+
   .list-content {
     background-color: #ffffff;
     padding: 20px;
