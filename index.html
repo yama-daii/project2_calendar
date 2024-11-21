@@ -1,0 +1,79 @@
+ <!--今後の予定
+ サイドバーへの機能追加
+ テーマの種類←(今ここ)
+ 編集・削除機能
+ サイドバーからのイベント追加機能
+
+ --↓余裕があれば↓--
+ TODO機能
+ アカウント機能
+ デザインの改良
+ etc...
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シンプルなカレンダー</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+    <div id="sidebar">
+      <h3>サイドバー</h3>
+      <ul>
+        <li><button class="openlist" onclick="openlist()">イベント一覧</button></li>
+        <li><button onclick="OpenThemeMenu()">テーマ</button></li>
+        <li><button onclick="openHelp()">設定</button></li>
+      </ul>
+    </div>
+<body>
+  <div id="calendar">
+    <div id="calendar-header">
+      <button class="prevMonth" onclick="prevMonth()">前月</button>
+      <h2 id="current-month"></h2>
+      <button class="nextMonth" onclick="nextMonth()">次月</button>
+    </div>
+    <table id="calendar-days">
+      <thead>
+        <tr>
+          <th>日</th>
+          <th>月</th>
+          <th>火</th>
+          <th>水</th>
+          <th>木</th>
+          <th>金</th>
+          <th>土</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
+  <div id="event-modal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal()" class="close">&times;</span>
+      <h3>イベントを追加</h3>
+      <input type="text" id="event-name" placeholder="イベント名">
+      <button onclick="addEvent()">保存</button>
+    </div>
+  </div>
+  
+ <!-- <button class="openlist" onclick="openlist()">登録されたイベント一覧表示 </button>-->
+  
+  <div id="event-list" class="list">
+    <div class="list-content">
+      <span onclick="closelist()" class="close">&times;</span>
+      <h2>登録されたイベント一覧</h2>
+      <ul id="showevents"></ul>
+    </div>
+  </div>
+
+  <div id="ThemeMenu" class="ThemeMenu">
+    <span onclick="CloseThemeMenu()" class="close">&times;</span>
+    <button onclick="setTheme('main')">メインテーマ</button>
+    <button onclick="setTheme('light')">ライトテーマ</button>
+    <button onclick="setTheme('dark')">ダークテーマ</button>
+  </div>
+  <script src="calendar.js"></script>
+</body>
+</html>
