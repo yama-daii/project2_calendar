@@ -1,6 +1,6 @@
  <!--今後の予定
  サイドバーへの機能追加
- テーマの種類←(今ここ)
+ テーマの種類
  編集・削除機能
  サイドバーからのイベント追加機能
 
@@ -48,7 +48,7 @@
       <tbody></tbody>
     </table>
   </div>
-  
+  <!--イベント追加用-->
   <div id="event-modal" class="modal">
     <div class="modal-content">
       <span onclick="closeModal()" class="close">&times;</span>
@@ -57,6 +57,18 @@
       <button onclick="addEvent()">保存</button>
     </div>
   </div>
+  <!--イベント編集用-->
+<div id="edit-modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>イベントを編集</h3>
+    <input type="text" id="edit-event-name" placeholder="イベント名">
+    <div id="edit-event-day"></div>
+    <button onclick="saveEdit()">保存</button>
+  </div>
+</div>
+
+  
   
  <!-- <button class="openlist" onclick="openlist()">登録されたイベント一覧表示 </button>-->
   
@@ -64,7 +76,6 @@
     <div class="list-content">
       <h2>登録されたイベント一覧</h2>
       <span onclick="closelist()" class="close">&times;</span>
-      
       <ul id="showevents"></ul>
     </div>
   </div>

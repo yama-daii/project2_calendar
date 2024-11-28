@@ -20,7 +20,7 @@ function loadCalendar() {
     row.innerHTML += `<td class="empty"></td>`;
   }
 
-  // 1日から月末までの日付を生成
+  // 1日から月末までの日付を生成・イベントがあるならマス目上に表示させる
   for (let i = 1; i <= daysInMonth; i++) {
     if ((firstDay + i - 1) % 7 === 0 && i !== 1) {
       calendarDays.appendChild(row);
@@ -68,12 +68,7 @@ function openModal(day) {
 
 function closeModal() {
   document.getElementById("event-modal").style.display = "none";
-}
-function openlist() {
-  document.getElementById("event-list").style.display = "block";
-}
-function closelist() {
-  document.getElementById("event-list").style.display = "none";
+  document.getElementById("event-name").value = "";
 }
 // 日付のマス目をクリック時に予定を追加 + localStorageに保存 + 再読み込み
 function addEvent() {
@@ -89,29 +84,92 @@ function addEvent() {
   loadCalendar();
   closeModal();
   displayevents();
+
+  document.getElementById("event-name").value="";
+  document.getElementById("event-date").value="";
 }
+  function editEvent(index) {
+    closelist();
+    const events = JSON.parse(localStorage.getItem("events") || "[]");
+    const event = events[index];
+    
+    // 編集モーダルにイベントの情報をセット
+    document.getElementById("edit-event-name").value = event.name;
+    
+    // インデックスをデータ属性として保存
+    const eventDayElement = document.getElementById("edit-event-day");
+    
+    if (eventDayElement) {
+      eventDayElement.dataset.index = index; // 編集対象のインデックスを保存
+    } else {
+      console.error("edit-event-day element not found");
+    }
+    
+    // 編集モーダルを表示
+    document.getElementById("edit-modal").style.display = "block";
+  }
+
+  function saveEdit() {
+    const events = JSON.parse(localStorage.getItem("events") || "[]");
+    const index = document.getElementById("edit-event-day").dataset.index;  // 編集対象のインデックスを取得
+    const newEventName = document.getElementById("edit-event-name").value;
+  
+    if (!newEventName) {
+      alert("イベント名を入力してください。");
+      return;
+    }
+  
+    events[index].name = newEventName; // イベント名を更新
+    localStorage.setItem("events", JSON.stringify(events));
+    
+    loadCalendar(); // カレンダーを再描画
+    displayevents(); // イベントリストを再描画
+    document.getElementById("edit-event-name").value = "";
+    closeEditModal(); // 編集モーダルを閉じる
+  }
+  
+function closeEditModal() {
+  document.getElementById("edit-modal").style.display = "none";
+}
+function deleteEvent(index) {
+  const events = JSON.parse(localStorage.getItem("events") || "[]");
+  events.splice(index, 1); // Remove the event
+  localStorage.setItem("events", JSON.stringify(events));
+  
+  loadCalendar(); // Reload the calendar to reflect the changes
+  displayevents(); // Update the event list
+}
+
+
+
 
 // 登録されたイベント一覧の表示
 function displayevents() {
   const eventlistelement = document.getElementById("showevents");
   const events = JSON.parse(localStorage.getItem("events") || "[]");
   eventlistelement.innerHTML = "";
-  events.forEach(event => {
+  events.forEach((event, index) => {
     const listItem = document.createElement("li");
-    listItem.textContent = `${event.year}/${event.month + 1}/${event.day} - ${event.name}`;
+    listItem.innerHTML = `${event.year}/${event.month + 1}/${event.day} - ${event.name} 
+      <button onclick="editEvent(${index})">編集</button>
+      <button onclick="deleteEvent(${index})">削除</button>`;
     eventlistelement.appendChild(listItem);
   });
 }
+
+
 // サイドバーのボタンに対応する関数
-function openEventList() {
-  alert('イベント一覧が表示されます');
-  // イベント一覧を表示する処理
+//イベント一覧の切り替え
+function openlist() {
+  document.getElementById("event-list").style.display = "block";
 }
-
-
+function closelist() {
+  document.getElementById("event-list").style.display = "none";
+}
+//ヘルプの一覧を表示(実装するか未定)
 function openHelp() {
   alert('制作中');
-  // ヘルプを表示する処理
+
 }
 //テーマに関する関数
 function OpenThemeMenu() {
@@ -131,3 +189,4 @@ document.addEventListener("DOMContentLoaded", function () {
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
 });
+
