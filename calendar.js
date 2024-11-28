@@ -1,15 +1,16 @@
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
-// HTML要素の取得と初期化
+// カレンダーをロードして表示する関数
 function loadCalendar() {
   const calendarDays = document.querySelector("#calendar-days tbody");
   const currentMonthTitle = document.getElementById("current-month");
+//日付部分を初期化
   calendarDays.innerHTML = "";
   currentMonthTitle.innerText = `${currentYear}年 ${currentMonth + 1}月`;
-
+//localstorageからイベントを取得
   const events =JSON.parse(localStorage.getItem("events")||"[]");
-
+//月の最初の日と日数を取得
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
@@ -41,8 +42,6 @@ function loadCalendar() {
 
     row.innerHTML += `<td class="day" onclick="openModal(${i})">${i}${eventHTML}</td>`;
   }
-
-  // 最後の行を追加
   calendarDays.appendChild(row);
 }
 
@@ -60,17 +59,16 @@ function nextMonth() {
   loadCalendar();
 }
 
-// イベント追加の呼び出し
+// イベント追加用
 function openModal(day) {
   document.getElementById("event-modal").style.display = "block";
   document.getElementById("event-name").dataset.day = day;
 }
-
 function closeModal() {
   document.getElementById("event-modal").style.display = "none";
   document.getElementById("event-name").value = "";
 }
-// 日付のマス目をクリック時に予定を追加 + localStorageに保存 + 再読み込み
+// 新しいイベントを追加+再読み込み
 function addEvent() {
   const day = document.getElementById("event-name").dataset.day;
   const eventName = document.getElementById("event-name").value;
@@ -88,6 +86,7 @@ function addEvent() {
   document.getElementById("event-name").value="";
   document.getElementById("event-date").value="";
 }
+//追加されたイベントの編集+再読み込み
   function editEvent(index) {
     closelist();
     const events = JSON.parse(localStorage.getItem("events") || "[]");
@@ -96,11 +95,10 @@ function addEvent() {
     // 編集モーダルにイベントの情報をセット
     document.getElementById("edit-event-name").value = event.name;
     
-    // インデックスをデータ属性として保存
     const eventDayElement = document.getElementById("edit-event-day");
     
     if (eventDayElement) {
-      eventDayElement.dataset.index = index; // 編集対象のインデックスを保存
+      eventDayElement.dataset.index = index;
     } else {
       console.error("edit-event-day element not found");
     }
@@ -108,10 +106,9 @@ function addEvent() {
     // 編集モーダルを表示
     document.getElementById("edit-modal").style.display = "block";
   }
-
   function saveEdit() {
     const events = JSON.parse(localStorage.getItem("events") || "[]");
-    const index = document.getElementById("edit-event-day").dataset.index;  // 編集対象のインデックスを取得
+    const index = document.getElementById("edit-event-day").dataset.index; 
     const newEventName = document.getElementById("edit-event-name").value;
   
     if (!newEventName) {
@@ -122,26 +119,24 @@ function addEvent() {
     events[index].name = newEventName; // イベント名を更新
     localStorage.setItem("events", JSON.stringify(events));
     
-    loadCalendar(); // カレンダーを再描画
-    displayevents(); // イベントリストを再描画
+    loadCalendar();
+    displayevents();
     document.getElementById("edit-event-name").value = "";
-    closeEditModal(); // 編集モーダルを閉じる
+    closeEditModal();
   }
   
 function closeEditModal() {
   document.getElementById("edit-modal").style.display = "none";
+//イベントを削除
 }
 function deleteEvent(index) {
   const events = JSON.parse(localStorage.getItem("events") || "[]");
-  events.splice(index, 1); // Remove the event
+  events.splice(index, 1);
   localStorage.setItem("events", JSON.stringify(events));
   
-  loadCalendar(); // Reload the calendar to reflect the changes
-  displayevents(); // Update the event list
+  loadCalendar();
+  displayevents();
 }
-
-
-
 
 // 登録されたイベント一覧の表示
 function displayevents() {

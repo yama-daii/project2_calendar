@@ -18,6 +18,8 @@
   /* ヘッダー部分 */
   #calendar-header {
     display: flex;
+    border: none;
+    border-radius: 5px;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -281,10 +283,11 @@
   }
   /*テーマ関連*/
   .main-theme{
-    --background-color:#00532E;
+    --background-color:#0c7445;
     --calendar-background:white;
     --calendar-header:rgb(235, 142, 20);
     --text-color:black;
+    --sidebar-background-color:#008f4f;
     --button-bg-color:#4CAF50;
     --button-hover-bg-color:#45a049;
     --sidemenu-button-color:#b81c22;
@@ -296,6 +299,7 @@
     --calendar-background:white;
     --calendar-header:rgb(#ffffff);
     --text-color: #000000;
+    --sidebar-background-color:#707070;
     --button-bg-color: #cecece;
     --button-hover-bg-color:#7e7e7e;
     --sidemenu-button-color:#0556a1;
@@ -307,7 +311,7 @@
     --calendar-background:white;
     --calendar-header:rgb(#ffffff);
     --text-color: black;
-    --sidebar-background-color:#333333;
+    --sidebar-background-color:#707070;
     --button-bg-color: #555555;
     --button-hover-bg-color:#7e7e7e;
     --sidemenu-button-color:#0556a1;

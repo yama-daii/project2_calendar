@@ -1,7 +1,6 @@
  <!--今後の予定
  サイドバーへの機能追加
  テーマの種類
- 編集・削除機能
  サイドバーからのイベント追加機能
 
  --↓余裕があれば↓--
@@ -18,7 +17,9 @@
   <title>シンプルなカレンダー</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-    <div id="sidebar">
+<body>
+  <!--サイドバーの各種ボタン-->
+      <div id="sidebar">
       <h3>サイドバー</h3>
       <ul>
         <li><button class="openlist" onclick="openlist()">イベント一覧</button></li>
@@ -26,7 +27,7 @@
         <li><button onclick="openHelp()">設定</button></li>
       </ul>
     </div>
-<body>
+    <!--カレンダー本体部分-->
   <div id="calendar">
     <div id="calendar-header">
       <button class="prevMonth" onclick="prevMonth()">前月</button>
@@ -67,19 +68,15 @@
     <button onclick="saveEdit()">保存</button>
   </div>
 </div>
-
-  
-  
- <!-- <button class="openlist" onclick="openlist()">登録されたイベント一覧表示 </button>-->
-  
-  <div id="event-list" class="list">
+<!--イベント一覧-->
+    <div id="event-list" class="list">
     <div class="list-content">
       <h2>登録されたイベント一覧</h2>
       <span onclick="closelist()" class="close">&times;</span>
       <ul id="showevents"></ul>
     </div>
   </div>
-
+<!--テーマ選択-->
   <div id="ThemeMenu" class="ThemeMenu">
     <div class="list-themes">
       <h2>テーマを選択してください</h2>
