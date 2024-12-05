@@ -59,16 +59,39 @@ function nextMonth() {
   loadCalendar();
 }
 
+//キーで決定・戻る
+document.addEventListener('keydown', (event) => {
+if(event.key === 'Enter' && event.target === document.getElementById('event-name')) {
+    addEvent();
+  }if(event.key === 'Enter' && event.target === document.getElementById('edit-event-name')) {
+    saveEdit();
+  }if(event.key === 'Escape'){
+    closeModal();
+    generalcloseModal();
+    closeEditModal();
+    closelist();
+    CloseThemeMenu()
+
+  }
+});
+
 // イベント追加用
 function openModal(day) {
   document.getElementById("event-modal").style.display = "block";
   document.getElementById("event-name").dataset.day = day;
 }
+function generalopenModal() {
+  document.getElementById("general-event-modal").style.display = "block";
+}
 function closeModal() {
   document.getElementById("event-modal").style.display = "none";
   document.getElementById("event-name").value = "";
 }
-// 新しいイベントを追加+再読み込み
+function generalcloseModal() {
+  document.getElementById("general-event-modal").style.display = "none";
+  document.getElementById("event-name").value = "";
+}
+// 新しいイベントを追加
 function addEvent() {
   const day = document.getElementById("event-name").dataset.day;
   const eventName = document.getElementById("event-name").value;
@@ -86,7 +109,25 @@ function addEvent() {
   document.getElementById("event-name").value="";
   document.getElementById("event-date").value="";
 }
+function generaladdEvent() {
+  const day = document.getElementById("event-name").dataset.day;
+  const eventName = document.getElementById("event-name").value;
+  if (!eventName) {
+    alert("イベント名を入力してください。");
+    return; // 処理を中断
+  }
+  const events = JSON.parse(localStorage.getItem("events") || "[]");
+  events.push({ year: currentYear, month: currentMonth, day: parseInt(day, 10), name: eventName });
+  localStorage.setItem("events", JSON.stringify(events));
+  loadCalendar();
+  closeModal();
+  displayevents();
+
+  document.getElementById("event-name").value="";
+  document.getElementById("event-date").value="";
+}
 //追加されたイベントの編集+再読み込み
+
   function editEvent(index) {
     closelist();
     const events = JSON.parse(localStorage.getItem("events") || "[]");
@@ -184,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
 });
+
 
 // イベントを検索する関数
 function searchEvent(searchKeyword) {

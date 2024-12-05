@@ -20,11 +20,13 @@
 <body>
   <!--サイドバーの各種ボタン-->
       <div id="sidebar">
-      <h3>サイドバー</h3>
+      <h3>メニュー</h3>
       <ul>
         <li><button class="openlist" onclick="openlist()">イベント一覧・検索</button></li>
         <li><button onclick="OpenThemeMenu()">テーマ</button></li>
-        <li><button onclick="openHelp()">設定</button></li>
+        <li><button onclick="generalopenModal()">新規イベントを追加</button></li>
+        <li><button onclick="openHelp()">設定</button></li><!--未定-->
+        
         
       </ul>
     </div>
@@ -53,10 +55,18 @@
   <!--イベント追加用-->
   <div id="event-modal" class="modal">
     <div class="modal-content">
-      <button onclick="closeModal()" class="close">閉じる</button>
+      <button id="closemodal-btn" onclick="closeModal()" class="close">閉じる</button>
       <h3>イベントを追加</h3>
       <input type="text" id="event-name" placeholder="イベント名">
-      <button onclick="addEvent()">保存</button>
+      <button id="addevent-btn" onclick="addEvent()">保存</button>
+    </div>
+  </div>
+  <div id="general-event-modal" class="modal">
+    <div class="modal-content">
+      <button id="closemodal-btn" onclick="generalcloseModal()" class="close">閉じる</button>
+      <h3>新規イベントを追加</h3>
+      <input type="text" id="event-name" placeholder="イベント名">
+      <button id="addevent-btn" onclick="addEvent()">保存</button>
     </div>
   </div>
   <!--イベント編集用-->
@@ -66,7 +76,7 @@
     <h3>イベントを編集</h3>
     <input type="text" id="edit-event-name" placeholder="イベント名">
     <div id="edit-event-day"></div>
-    <button onclick="saveEdit()">保存</button>
+    <button id="saveEdit-btn" onclick="saveEdit()">保存</button>
   </div>
 </div>
 <!--イベント一覧-->
@@ -90,7 +100,7 @@
     <div class="list-themes">
       <h2>テーマを選択してください</h2>
     <span onclick="CloseThemeMenu()" class="close">&times;</span>
-    <button onclick="setTheme('main')">メインテーマ</button>
+    <button onclick="setTheme('main')">メイン\テーマ</button>
     <button onclick="setTheme('light')">ライトテーマ</button>
     <button onclick="setTheme('dark')">ダークテーマ</button>
     </div>

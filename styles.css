@@ -143,8 +143,8 @@
 
 }
 
-  /* イベント一覧の表示 */
-  #event-list {
+/* イベント一覧の表示 */
+#event-list {
     display: none;
     position: fixed;
     top: 0;
@@ -155,7 +155,7 @@
     z-index: 1000;
   }
   
-  .list-content {
+.list-content {
     background-color: #ffffff;
     padding: 20px;
     margin: 50px auto;
