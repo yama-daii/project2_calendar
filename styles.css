@@ -19,7 +19,6 @@
   #calendar-header {
     display: flex;
     border: none;
-    border-radius: 5px;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -45,7 +44,7 @@
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color:var(--button-hover);
   }
   
   /* カレンダーの日付表示部分 */
@@ -79,10 +78,6 @@
     background-color: #e0f7fa;
   }
   
-  #calendar-days .day:active {
-    background-color: #4CAF50;
-    color: white;
-  }
   .event {
     background-color: #4caf50;
     color: white;
@@ -285,6 +280,7 @@
   .main-theme{
     --background-color:#0c7445;
     --calendar-background:white;
+    --button-hover:#45a049;
     --calendar-header:rgb(235, 142, 20);
     --text-color:black;
     --sidebar-background-color:#008f4f;
@@ -297,6 +293,7 @@
   .light-theme {
     --background-color: #ffffff;
     --calendar-background:white;
+    --button-hover:#b6b6b6;
     --calendar-header:rgb(#ffffff);
     --text-color: #000000;
     --sidebar-background-color:#707070;
@@ -309,6 +306,7 @@
   .dark-theme {
     --background-color: #333333;
     --calendar-background:white;
+    --button-hover:#b6b6b6;
     --calendar-header:rgb(#ffffff);
     --text-color: black;
     --sidebar-background-color:#707070;

@@ -77,7 +77,7 @@ function addEvent() {
     return; // 処理を中断
   }
   const events = JSON.parse(localStorage.getItem("events") || "[]");
-  events.push({ year: currentYear, month: currentMonth, day: day, name: eventName });
+  events.push({ year: currentYear, month: currentMonth, day: parseInt(day, 10), name: eventName });
   localStorage.setItem("events", JSON.stringify(events));
   loadCalendar();
   closeModal();
@@ -184,4 +184,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
 });
+
+// イベントを検索する関数
+function searchEvent(searchKeyword) {
+  // LocalStorage からイベントデータを取得
+  const events = JSON.parse(localStorage.getItem('events')) || [];
+
+  // 検索キーワードに一致するイベントをフィルタリング
+  const filteredEvents = events.filter(event => event.name.includes(searchKeyword));
+
+  displaySearchResults(filteredEvents);
+}
+
+// 検索結果を表示する関数
+function displaySearchResults(events) {
+  const resultContainer = document.getElementById('search-results');
+  resultContainer.innerHTML = '';
+
+  if (events.length === 0) {
+      resultContainer.innerHTML = '<p>一致するイベントが見つかりませんでした。</p>';
+      return;
+  }
+
+  // 結果を表示
+  events.forEach(event => {
+      const eventItem = document.createElement('div');
+      eventItem.textContent = `名前: ${event.name}, 日付:${event.year}/${event.month + 1}/${event.day}`;
+      resultContainer.appendChild(eventItem);
+  });
+}
+
+// 検索ボタンのクリックイベント
+document.getElementById('search-button').addEventListener('click', () => {
+  const searchKeyword = document.getElementById('search-input').value;
+  searchEvent(searchKeyword);
+});
+
 
